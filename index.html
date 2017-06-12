@@ -163,7 +163,6 @@ body,
             if (index == null || index == "") {
                 index = null;
             }
-            console.log("changing concert", "last", _this.lastConcertIndex, "new", index);
             if (_this.lastConcertIndex != index) {
                 var concert = null;
                 if (_.isEmpty(index)) {
@@ -223,8 +222,6 @@ body,
             this.loadState(history.state.index);
         }
         
-        console.log("initial", window.location.hash);
-
         if (!_.isEmpty(window.location.hash)) {
             this.loadState(window.location.hash.replace("#/", ""));
         }
