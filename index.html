@@ -156,34 +156,40 @@ body,
             ga("send", "event", "Main", "view", _this.selectedConcertIndex());
         });
         this.lastConcertIndex = null;
+        this.loadingPrevious = false;
 
         this.selectedConcert = ko.computed(function () {
             var index = _this.selectedConcertIndex();
-
+            if (index == null || index == "") {
+                index = null;
+            }
+            console.log("changing concert", "last", _this.lastConcertIndex, "new", index);
             if (_this.lastConcertIndex != index) {
+                var concert = null;
                 if (_.isEmpty(index)) {
                     document.title = "Harry Styles Live On Tour - Concert Connector";
-                    history.pushState({index: index}, "", null);
-                    return null;
+                    if (!_this.loadingPrevious) { history.pushState({index: index}, "", null); }
                 }
                 else {
-                    var concert = _this.getConcert(index);
+                    concert = _this.getConcert(index);
                     document.title = "Harry Styles Live On Tour - Concert Connector - " + concert.title;
-                    history.pushState({index: index}, "", "#/" + index);
-                    return concert;
+                    if (!_this.loadingPrevious) { history.pushState({index: index}, "", "#/" + index); }
                 } 
-            }
 
-            _this.lastConcertIndex = index;
+                _this.lastConcertIndex = index;
+                return concert;
+            }
         });
         $(function () {
             $.get(_this.getTableUrl()).done(function (data) { return _this.loadData(data); });
         });
         
-        window.onpopstate = function(e) { _this.loadState(e.state.index); };
+        window.onpopstate = function(e) { _this.loadState(e.state == null ? null : e.state.index); };
     }
     ConcertConnector.prototype.loadState = function(index) {
+        this.loadingPrevious = true;
         this.selectedConcertIndex(index);
+        this.loadingPrevious = false;
     };
     ConcertConnector.prototype.getTableUrl = function () {
         return "https://www.googleapis.com/fusiontables/v2/query?sql=SELECT * FROM " + this.tableId + " ORDER BY Index&key=" + this.apiKey;
@@ -216,8 +222,15 @@ body,
         if (history.state != null) {
             this.loadState(history.state.index);
         }
-        if (window.location.hash != null) {
+        
+        console.log("initial", window.location.hash);
+
+        if (!_.isEmpty(window.location.hash)) {
             this.loadState(window.location.hash.replace("#/", ""));
+        }
+        else {
+            document.title = "Harry Styles Live On Tour - Concert Connector";
+            history.pushState({index: null}, "", null);
         }
 
     };
