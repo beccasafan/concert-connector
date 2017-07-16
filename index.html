@@ -1,258 +1,45 @@
 <!DOCTYPE html>
-<html >
+<html>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>Harry Styles Live On Tour - Concert Connector</title>
-  
+  <title>Beccasafan's Concert Connectors</title>
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 
   <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
-<style>
-html,
-body,
-.full-bg-img {
-  height: 100%;
-}
-.full-bg-img {
-  background: url('https://static.tumblr.com/wvzujvn/HKJop8naw/hs_cover.jpg') no-repeat center center fixed;
-  background-size: cover;
-  position: fixed;
-  overflow: hidden;
-  left: 0;
-  top: 0;
-  width: 100%;
-  z-index: -1;
-}
-#title {
-  color: white;
-}
-#title p {
-    font-size: 0.8rem;
-}
-#concert-selected {
-  border: 1px solid transparent;
-}
-.card {
-  position: relative;
-}
-.card img {
-  width: 100%;
-  border-radius: 0.25rem;
-}
-.card .card-subtitle {
-  margin-bottom: 0.75rem;
-}
-.card .concert-meta {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
 
-#add-your-name {
-    display: inline-block;
-}
-.footer {
-    font-size: 0.6rem;
-  color: white;
-}
-</style>
-  
+  <style>
+    body {
+      background-color: #ECEEEF;
+      min-height: 100vh;
+    }
+    
+    .container {
+      background-color: #ffffff;
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+    }
+    
+    .connectors {
+      margin-top: 3rem;
+    }
+  </style>
 </head>
 
 <body>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-98598808-1', 'auto');
-  ga('send', 'pageview');
+  <div class="jumbotron text-center">
+    <div class="container">
+      <h1>Beccasafan's Concert Connectors</h1>
 
-</script>
-  <div class="full-bg-img flex-center"></div>
-<div id="concert-connector" class="container">
- <div id="title" class="text-center">
-  <h3 class="my-3">Harry Styles Live On Tour - Concert Connector</h3>
-  <p>Connect with other fans attending Harry's tour! Select the concert you're attending from the list below, and add your Tumblr username. Then check out everybody else going to the same concert as you.</p>
-  <p>Contact beccasafan on Tumblr or Twitter if you have any questions or need anything changed/removed.</p>
- </div>
- <div>
- </div>
- <select id="concerts-list" class="form-control" data-bind="options: concerts, optionsText: 'title', value: selectedConcertIndex, optionsValue: 'index', optionsCaption: 'Select a concert...'">
-	</select>
- <div id="concert-selected" data-bind="if: selectedConcert">
-  <!-- ko with: selectedConcert -->
-  <div class="card my-3">
-   <div class="row no-gutters">
-    <div class="col-sm-12 col-md-8">
-     <div class="card-block concert-meta text-center">
-      <h3 class="card-title" data-bind="text: venue">	</h3>
-      <h4 class="card-subtitle" data-bind="text: location"></h4>
-      <h5 class="card-subtitle" data-bind="text: date"></h5>
-     </div>
+      <div class="connectors">
+        <h3><a href="harry">Harry Styles Live On Tour</a></h3>
+        <h3><a href="niall">Niall Horan Flicker Sessions</a></h3>
+      </div>
     </div>
-    <div class="col-sm-12 col-md-4">
-     <img data-bind="attr: { src: image }" />
-     <!--<div class="google-maps--view card-footer text-center">
-      <a target="_blank" data-bind="click: $parent.trackMapClick.bind($parent), attr: { href: $parent.getGoogleMapsLink($data) }">View in Google Maps</a>
-     </div>-->
-    </div>
-   </div>
   </div>
-  <div class="card mt-3">
-   <div class="card-block">
-    <div class="col-sm-12">
-     <div id="add-your-name" class="pb-3 alert alert-success"><a target="_blank" class="alert-link" data-bind="click: $parent.trackSignupClick.bind($parent), attr: { href: $parent.getGoogleFormsLink($data) }">Add your name</a></div>
-     
-     <div>
-      <table class="table table-striped">
-       <thead>
-        <tr>
-         <th style="width: 50%;">Tumblr Name</th>
-         <th>Section</th>
-        </tr>
-       </thead>
-       <!-- ko if: people -->
-       <tbody data-bind="foreach: people" class="text-left">
-        <tr>
-         <td data-bind="text: person"></td>
-         <td data-bind="text: section"></td>
-        </tr>
-       </tbody>
-       <!-- /ko -->
-       <!-- ko ifnot: people -->
-       <tbody>
-        <tr>
-         <td colspan="2">Nobody has signed up yet.</td>
-        </tr>
-       </tbody>
-       <!-- /ko -->
-      </table>
-     </div>
-    </div>
-   </div>
-  </div>
-  <!-- /ko -->
- </div>
- <p class="text-center footer">Background image from <a href="http://hstyles.co.uk" class="footer">http://hstyles.co.uk</a></p>
-</div>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js'></script>
-
-    <script>
-    var ConcertConnector = (function () {
-    function ConcertConnector() {
-        var _this = this;
-        this.tableId = "1vYcrMlKiTH0wRxO_tA19jtD0X6Uy2a9b4OvwKdNJ";
-        this.apiKey = "AIzaSyCc-3LbhBwF_eRD6d8cZ-iqLtKM2E2V8TY";
-        this.concerts = ko.observableArray();
-        this.selectedConcertIndex = ko.observable();
-        this.selectedConcertIndex.subscribe(function(newValue) { 
-            ga("send", "event", "Main", "view", _this.selectedConcertIndex());
-        });
-        this.lastConcertIndex = null;
-        this.loadingPrevious = false;
-
-        this.selectedConcert = ko.computed(function () {
-            var index = _this.selectedConcertIndex();
-            if (index == null || index == "") {
-                index = null;
-            }
-            if (_this.lastConcertIndex != index) {
-                var concert = null;
-                if (_.isEmpty(index)) {
-                    document.title = "Harry Styles Live On Tour - Concert Connector";
-                    if (!_this.loadingPrevious) { history.pushState({index: index}, "", null); }
-                }
-                else {
-                    concert = _this.getConcert(index);
-                    document.title = "Harry Styles Live On Tour - Concert Connector - " + concert.title;
-                    if (!_this.loadingPrevious) { history.pushState({index: index}, "", "#/" + index); }
-                } 
-
-                _this.lastConcertIndex = index;
-                return concert;
-            }
-        });
-        $(function () {
-            $.get(_this.getTableUrl()).done(function (data) { return _this.loadData(data); });
-        });
-        
-        window.onpopstate = function(e) { _this.loadState(e.state == null ? null : e.state.index); };
-    }
-    ConcertConnector.prototype.loadState = function(index) {
-        this.loadingPrevious = true;
-        this.selectedConcertIndex(index);
-        this.loadingPrevious = false;
-    };
-    ConcertConnector.prototype.getTableUrl = function () {
-        return "https://www.googleapis.com/fusiontables/v2/query?sql=SELECT * FROM " + this.tableId + " ORDER BY Index&key=" + this.apiKey;
-    };
-    ConcertConnector.prototype.loadData = function (data) {
-        this.concerts(_.map(data.rows, function (r) {
-            return {
-                index: r[0],
-                date: r[1],
-                venue: r[2],
-                location: r[3],
-                latLng: r[4],
-                title: r[6],
-                image: r[5],
-                people: r[7].length <= 0 ? null : _.map(r[7].split("|"), function (p) {
-                    if (p.length > 0) {
-                        var person = p.split(":");
-                        return {
-                            person: person[0],
-                            section: person[1] || null
-                        };
-                    }
-                    else {
-                        return null;
-                    }
-                })
-            };
-        }));
-
-        if (history.state != null) {
-            this.loadState(history.state.index);
-        }
-        
-        if (!_.isEmpty(window.location.hash)) {
-            this.loadState(window.location.hash.replace("#/", ""));
-        }
-        else {
-            document.title = "Harry Styles Live On Tour - Concert Connector";
-            history.pushState({index: null}, "", null);
-        }
-
-    };
-    ConcertConnector.prototype.getConcert = function (index) {
-        return _.find(this.concerts(), function (c) { return index === c.index; });
-    };
-    ConcertConnector.prototype.getGoogleMapsLink = function (concert) {
-        return "https://google.com/maps/place/" + concert.venue.replace(new RegExp(" ", "g"), "+") ; // + "/@" + concert.latLng.replace(" ", "");
-    };
-    ConcertConnector.prototype.getGoogleFormsLink = function(concert) {
-        return "https://docs.google.com/forms/d/e/1FAIpQLSdROr7C-2jJ6-xjZodDw6ykHxPd97g2wiqongSAWZFhoPDHCA/viewform?usp=pp_url&entry.573869022=" + concert.title;
-    };
-    ConcertConnector.prototype.trackMapClick = function() {
-        ga("send", "event", "Main", "map", this.selectedConcertIndex());
-        return true;
-    }
-    ConcertConnector.prototype.trackSignupClick = function() {
-        ga("send", "event", "Main", "signup", this.selectedConcertIndex());
-        return true;
-    }
-    return ConcertConnector;
-}());
-var concertConnector = new ConcertConnector();
-ko.applyBindings(concertConnector);
-</script>
-
 </body>
+
 </html>
