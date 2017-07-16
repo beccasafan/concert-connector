@@ -164,7 +164,7 @@
         this.concerts = ko.observableArray();
         this.selectedConcertIndex = ko.observable();
         this.selectedConcertIndex.subscribe(function(newValue) { 
-            ga("send", "event", "Main", "view", _this.selectedConcertIndex());
+            ga("send", "event", "Harry", "view", _this.selectedConcertIndex());
         });
         this.lastConcertIndex = null;
         this.loadingPrevious = false;
@@ -252,11 +252,11 @@
         return "https://docs.google.com/forms/d/e/1FAIpQLSdROr7C-2jJ6-xjZodDw6ykHxPd97g2wiqongSAWZFhoPDHCA/viewform?usp=pp_url&entry.573869022=" + concert.title;
     };
     ConcertConnector.prototype.trackMapClick = function() {
-        ga("send", "event", "Main", "map", this.selectedConcertIndex());
+        ga("send", "event", "Harry", "map", this.selectedConcertIndex());
         return true;
     }
     ConcertConnector.prototype.trackSignupClick = function() {
-        ga("send", "event", "Main", "signup", this.selectedConcertIndex());
+        ga("send", "event", "Harry", "signup", this.selectedConcertIndex());
         return true;
     }
     return ConcertConnector;
