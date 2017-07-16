@@ -164,7 +164,7 @@
         this.concerts = ko.observableArray();
         this.selectedConcertIndex = ko.observable();
         this.selectedConcertIndex.subscribe(function(newValue) { 
-            ga("send", "event", "Main", "view", _this.selectedConcertIndex());
+            ga("send", "event", "Niall", "view", _this.selectedConcertIndex());
         });
         this.lastConcertIndex = null;
         this.loadingPrevious = false;
