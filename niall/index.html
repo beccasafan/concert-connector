@@ -252,11 +252,11 @@
         return "https://docs.google.com/forms/d/e/1FAIpQLSehDBQ5pdM_5cd4xMjEFciyUVNUSI7amCqnJiAqjFiAy6RZsA/viewform?usp=pp_url&entry.512371381=" + concert.title;
     };
     ConcertConnector.prototype.trackMapClick = function() {
-        ga("send", "event", "Main", "map", this.selectedConcertIndex());
+        ga("send", "event", "Niall", "map", this.selectedConcertIndex());
         return true;
     }
     ConcertConnector.prototype.trackSignupClick = function() {
-        ga("send", "event", "Main", "signup", this.selectedConcertIndex());
+        ga("send", "event", "Niall", "signup", this.selectedConcertIndex());
         return true;
     }
     return ConcertConnector;
