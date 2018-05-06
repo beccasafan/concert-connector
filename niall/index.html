@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Niall Horan Flicker Sessions 2017 - Concert Connector</title>
+    <title>Niall Horan Flicker Sessions - Concert Connector</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 
@@ -86,7 +86,7 @@
     <div class="full-bg-img flex-center"></div>
     <div id="concert-connector" class="container">
         <div id="title" class="text-center">
-            <h3 class="my-3">Niall Horan Flicker Sessions 2017 - Concert Connector</h3>
+            <h3 class="my-3">Niall Horan Flicker Sessions - Concert Connector</h3>
             <p>Connect with other fans attending Niall's tour! Select the concert you're attending from the list below, and
                 add your Tumblr username. Then check out everybody else going to the same concert as you.</p>
             <p>Contact beccasafan on Tumblr or Twitter if you have any questions or need anything changed/removed.</p>
@@ -177,12 +177,12 @@
             if (_this.lastConcertIndex != index) {
                 var concert = null;
                 if (_.isEmpty(index)) {
-                    document.title = "Niall Horan Flicker Sessions 2017 - Concert Connector";
+                    document.title = "Niall Horan Flicker Sessions - Concert Connector";
                     if (!_this.loadingPrevious) { history.pushState({index: index}, "", null); }
                 }
                 else {
                     concert = _this.getConcert(index);
-                    document.title = "Niall Horan Flicker Sessions 2017 - Concert Connector - " + concert.title;
+                    document.title = "Niall Horan Flicker Sessions - Concert Connector - " + concert.title;
                     if (!_this.loadingPrevious) { history.pushState({index: index}, "", "#/" + index); }
                 } 
 
@@ -237,7 +237,7 @@
             this.loadState(window.location.hash.replace("#/", ""));
         }
         else {
-            document.title = "Niall Horan Flicker Sessions 2017 - Concert Connector";
+            document.title = "Niall Horan Flicker Sessions - Concert Connector";
             history.pushState({index: null}, "", null);
         }
 
