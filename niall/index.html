@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Niall Horan Flicker Sessions - Concert Connector</title>
+    <title>Niall Horan Nice To Meet Ya North American Tour - Concert Connector</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
+    <script src='https://apis.google.com/js/api.js'></script>
     <style>
         html,
         body,
@@ -17,7 +18,7 @@
         }
         
         .full-bg-img {
-            background: url('http://www.niallhoran.com/wp-content/themes/niallhoran_niallhoran/assets/images/splash-background.jpg') no-repeat center center fixed;
+            background: url('https://www.niallhoran.com/files/2019/09/NTMY-Web-3.jpg') no-repeat top center fixed;
             background-size: cover;
             position: fixed;
             overflow: hidden;
@@ -28,7 +29,7 @@
         }
         
         #title {
-            color: white;
+            color: #333;
         }
         
         #title p {
@@ -66,7 +67,7 @@
         
         .footer {
             font-size: 0.6rem;
-            color: white;
+            color: #333;
         }
     </style>
 
@@ -86,7 +87,7 @@
     <div class="full-bg-img flex-center"></div>
     <div id="concert-connector" class="container">
         <div id="title" class="text-center">
-            <h3 class="my-3">Niall Horan Flicker Sessions - Concert Connector</h3>
+            <h3 class="my-3">Niall Horan Nice To Meet Ya North American Tour - Concert Connector</h3>
             <p>Connect with other fans attending Niall's tour! Select the concert you're attending from the list below, and
                 add your Tumblr username. Then check out everybody else going to the same concert as you.</p>
             <p>Contact beccasafan on Tumblr or Twitter if you have any questions or need anything changed/removed.</p>
@@ -149,7 +150,7 @@
             </div>
             <!-- /ko -->
         </div>
-        <p class="text-center footer">Background image from <a href="http://www.niallhoran.com/" class="footer">http://www.niallhoran.com/</a></p>
+        <p class="text-center footer">Background image from <a href="http://niallhoran.com" class="footer">http://niallhoran.com</a></p>
     </div>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js'></script>
@@ -159,7 +160,7 @@
     var ConcertConnector = (function () {
     function ConcertConnector() {
         var _this = this;
-        this.tableId = "1CHpwWJiNbD3ANroS0yI4yhr713Qal1M_NYtrmGAO";
+        this.tableId = "1vYcrMlKiTH0wRxO_tA19jtD0X6Uy2a9b4OvwKdNJ"; // TODO
         this.apiKey = "AIzaSyCc-3LbhBwF_eRD6d8cZ-iqLtKM2E2V8TY";
         this.concerts = ko.observableArray();
         this.selectedConcertIndex = ko.observable();
@@ -177,12 +178,12 @@
             if (_this.lastConcertIndex != index) {
                 var concert = null;
                 if (_.isEmpty(index)) {
-                    document.title = "Niall Horan Flicker Sessions - Concert Connector";
+                    document.title = "Niall Horan Nice To Meet Ya North American Tour - Concert Connector";
                     if (!_this.loadingPrevious) { history.pushState({index: index}, "", null); }
                 }
                 else {
                     concert = _this.getConcert(index);
-                    document.title = "Niall Horan Flicker Sessions - Concert Connector - " + concert.title;
+                    document.title = "Niall Horan Nice To Meet Ya North American Tour - Concert Connector - " + concert.title;
                     if (!_this.loadingPrevious) { history.pushState({index: index}, "", "#/" + index); }
                 } 
 
@@ -191,7 +192,24 @@
             }
         });
         $(function () {
-            $.get(_this.getTableUrl()).done(function (data) { return _this.loadData(data); });
+            function start() {
+                gapi.client.init({
+                    'apiKey': 'AIzaSyA_fT0UlSgEcw7z0nhyefOp0AWvh5aJCy4',
+                    'discoveryDocs': ['https://sheets.googleapis.com/$discovery/rest?version=v4']
+                }).then(function() {
+                    return gapi.client.sheets.spreadsheets.values.get({
+                        'spreadsheetId': '1mtOFK9oDCYU0ySE8q32c_dSaQN4w-0aY4rOiEZSCsqI',
+                        'range': 'Concerts!A:H'
+                    });
+                }).then(function(response) { 
+                    _this.loadData(response.result.values);
+                }, function(reason) { 
+                    console.log("Error: " + reason.result.error.message); 
+                });
+            };
+            gapi.load('client', start);
+
+            // $.get(_this.getTableUrl()).done(function (data) { return _this.loadData(data); });
         });
         
         window.onpopstate = function(e) { _this.loadState(e.state == null ? null : e.state.index); };
@@ -205,16 +223,17 @@
         return "https://www.googleapis.com/fusiontables/v2/query?sql=SELECT * FROM " + this.tableId + " ORDER BY Index&key=" + this.apiKey;
     };
     ConcertConnector.prototype.loadData = function (data) {
-        this.concerts(_.map(data.rows, function (r) {
+        data.shift();
+        var result = _.map(data, function (r) {
             return {
                 index: r[0],
-                date: r[1],
-                venue: r[2],
+                date: r[2],
+                venue: r[4],
                 location: r[3],
-                latLng: r[4],
+                //latLng: r[4],
                 title: r[6],
                 image: r[5],
-                people: r[7].length <= 0 ? null : _.map(r[7].split("|"), function (p) {
+                people: r.length < 8 ? null : _.map(r[7].split("|"), function (p) {
                     if (p.length > 0) {
                         var person = p.split(":");
                         return {
@@ -227,7 +246,8 @@
                     }
                 })
             };
-        }));
+        });
+        this.concerts(result);
 
         if (history.state != null) {
             this.loadState(history.state.index);
@@ -237,7 +257,7 @@
             this.loadState(window.location.hash.replace("#/", ""));
         }
         else {
-            document.title = "Niall Horan Flicker Sessions - Concert Connector";
+            document.title = "Niall Horan Nice To Meet Ya North American Tour - Concert Connector";
             history.pushState({index: null}, "", null);
         }
 
@@ -249,7 +269,7 @@
         return "https://google.com/maps/place/" + concert.venue.replace(new RegExp(" ", "g"), "+") ; // + "/@" + concert.latLng.replace(" ", "");
     };
     ConcertConnector.prototype.getGoogleFormsLink = function(concert) {
-        return "https://docs.google.com/forms/d/e/1FAIpQLSehDBQ5pdM_5cd4xMjEFciyUVNUSI7amCqnJiAqjFiAy6RZsA/viewform?usp=pp_url&entry.512371381=" + concert.title;
+        return "https://docs.google.com/forms/d/e/1FAIpQLSdO4pTF8V88UbrLQBnspqG68PgrzoGAkyBp_cVzUapDfaHzbA/viewform?usp=pp_url&entry.1748102836=" + concert.title;
     };
     ConcertConnector.prototype.trackMapClick = function() {
         ga("send", "event", "Niall", "map", this.selectedConcertIndex());
