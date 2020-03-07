@@ -1,291 +1,496 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-98598808-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+    </script>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Harry Styles Love on Tour - Concert Connector</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+    <title>Harry Styles Love On Tour - Concert Connector</title>
 
-    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
-    <script src='https://apis.google.com/js/api.js'></script>
     <style>
-        html,
-        body,
-        .full-bg-img {
-            height: 100%;
+        :root {
+            --subheader: #F3BFB3;
+            --primary: #E36D90;
+            --alternate: #FFFFFF;
+            --background: #01688C;
+            --header: #E36D90;
+            --hover: #62D3F6;
+        }
+        @font-face {
+            font-family: 'nevis Bold';
+            font-style: normal;
+            font-weight: normal;
+            src: local('nevis Bold'), url('../v2/nevis.woff') format('woff');
+        }
+        body {
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Lato', sans-serif;
+        }
+
+        a, a:visited {
+            color: white;
+            text-decoration: underline;
+        }
+        a:hover {
+            color: var(--hover);
         }
         
-        .full-bg-img {
-            background: url('https://static.tumblr.com/wvzujvn/Oppq0w5ff/hslot.jpg') no-repeat center center fixed;
-            background-size: 100%;
-            position: fixed;
-            overflow: hidden;
-            left: 0;
-            top: 0;
-            width: 100%;
-            z-index: -1;
-		opacity: 0.2;
+        img {
+            max-width: 100%;
         }
-        
-        #title {
-            color: #333;
+
+        hr {
+            border-top: 0.25rem solid var(--primary);
         }
-        
-        #title p {
-            font-size: 0.8rem;
-        }
-        
-        #concert-selected {
-            border: 1px solid transparent;
-        }
-        
-        .card {
-            position: relative;
-        }
-        
-        .card img {
-            width: 100%;
-            border-radius: 0.25rem;
-        }
-        
-        .card .card-subtitle {
-            margin-bottom: 0.75rem;
-        }
-        
-        .card .concert-meta {
-            height: 100%;
+
+        #spinner {
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
+            background-color: var(--background);
+        }
+        #header {
+            background-color: var(--header);
+        }
+        #content {
+            display: none;
+        }
+        #concert-details {
+            display: none;
+        }
+        .content-box {
+            background-color: var(--background);
+            color: var(--alternate);
+        }
+
+        .content-box-header {
+            font-family: 'nevis Bold', sans-serif;
+            font-size: 0.85rem;
+            color: var(--primary);
+            background-color: var(--alternate);
+            font-weight: bold;
+        }
+
+        .content-box-header a {
+            text-decoration: none;
         }
         
-        #add-your-name {
+        .content-box-action {
+            color: var(--alternate);
+            background-color: var(--primary);
+        }
+
+        .project-song {
+            color: var(--hover);
+            text-transform: uppercase;
+        }
+
+        .content-box-intro {
+            color: var(--subheader);
+            font-style: italic;
+        }
+
+        .social-media {
+            height: 1rem;
+            width: 1rem;
             display: inline-block;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin-right: .5rem;
+            background-size: contain;
+            position: relative;
+            top: 3px;
         }
-        
-        .footer {
-            font-size: 0.6rem;
-            color: #333;
+        #fans-fans .social-media {
+            margin-right: 0;
         }
+
+        #fans-fans .fan {
+            border-bottom: 1px dotted var(--alternate);
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+        #fans-fans .fan .fan-section {
+            color: var(--subheader);
+            font-style: italic;
+        }
+        .twitter {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%231da1f2;%7D.cls-2%7Bfill:%23fff;%7D.cls-3%7Bfill:none;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3ETwitter_Logo_White-on-Blue%3C/title%3E%3Cg id='Dark_Blue' data-name='Dark Blue'%3E%3Crect class='cls-1' width='400' height='400'/%3E%3C/g%3E%3Cg id='Logo_FIXED' data-name='Logo — FIXED'%3E%3Cpath class='cls-2' d='M153.62,301.59c94.34,0,145.94-78.16,145.94-145.94,0-2.22,0-4.43-.15-6.63A104.36,104.36,0,0,0,325,122.47a102.38,102.38,0,0,1-29.46,8.07,51.47,51.47,0,0,0,22.55-28.37,102.79,102.79,0,0,1-32.57,12.45,51.34,51.34,0,0,0-87.41,46.78A145.62,145.62,0,0,1,92.4,107.81a51.33,51.33,0,0,0,15.88,68.47A50.91,50.91,0,0,1,85,169.86c0,.21,0,.43,0,.65a51.31,51.31,0,0,0,41.15,50.28,51.21,51.21,0,0,1-23.16.88,51.35,51.35,0,0,0,47.92,35.62,102.92,102.92,0,0,1-63.7,22A104.41,104.41,0,0,1,75,278.55a145.21,145.21,0,0,0,78.62,23'/%3E%3Crect class='cls-3' width='400' height='400'/%3E%3C/g%3E%3C/svg%3E");
+        }
+        .instagram {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='132.004' height='132' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cdefs%3E%3ClinearGradient id='b'%3E%3Cstop offset='0' stop-color='%233771c8'/%3E%3Cstop stop-color='%233771c8' offset='.128'/%3E%3Cstop offset='1' stop-color='%2360f' stop-opacity='0'/%3E%3C/linearGradient%3E%3ClinearGradient id='a'%3E%3Cstop offset='0' stop-color='%23fd5'/%3E%3Cstop offset='.1' stop-color='%23fd5'/%3E%3Cstop offset='.5' stop-color='%23ff543e'/%3E%3Cstop offset='1' stop-color='%23c837ab'/%3E%3C/linearGradient%3E%3CradialGradient id='c' cx='158.429' cy='578.088' r='65' xlink:href='%23a' gradientUnits='userSpaceOnUse' gradientTransform='matrix(0 -1.98198 1.8439 0 -1031.402 454.004)' fx='158.429' fy='578.088'/%3E%3CradialGradient id='d' cx='147.694' cy='473.455' r='65' xlink:href='%23b' gradientUnits='userSpaceOnUse' gradientTransform='matrix(.17394 .86872 -3.5818 .71718 1648.348 -458.493)' fx='147.694' fy='473.455'/%3E%3C/defs%3E%3Cpath fill='url(%23c)' d='M65.03 0C37.888 0 29.95.028 28.407.156c-5.57.463-9.036 1.34-12.812 3.22-2.91 1.445-5.205 3.12-7.47 5.468C4 13.126 1.5 18.394.595 24.656c-.44 3.04-.568 3.66-.594 19.188-.01 5.176 0 11.988 0 21.125 0 27.12.03 35.05.16 36.59.45 5.42 1.3 8.83 3.1 12.56 3.44 7.14 10.01 12.5 17.75 14.5 2.68.69 5.64 1.07 9.44 1.25 1.61.07 18.02.12 34.44.12 16.42 0 32.84-.02 34.41-.1 4.4-.207 6.955-.55 9.78-1.28 7.79-2.01 14.24-7.29 17.75-14.53 1.765-3.64 2.66-7.18 3.065-12.317.088-1.12.125-18.977.125-36.81 0-17.836-.04-35.66-.128-36.78-.41-5.22-1.305-8.73-3.127-12.44-1.495-3.037-3.155-5.305-5.565-7.624C116.9 4 111.64 1.5 105.372.596 102.335.157 101.73.027 86.19 0H65.03z' transform='translate(1.004 1)'/%3E%3Cpath fill='url(%23d)' d='M65.03 0C37.888 0 29.95.028 28.407.156c-5.57.463-9.036 1.34-12.812 3.22-2.91 1.445-5.205 3.12-7.47 5.468C4 13.126 1.5 18.394.595 24.656c-.44 3.04-.568 3.66-.594 19.188-.01 5.176 0 11.988 0 21.125 0 27.12.03 35.05.16 36.59.45 5.42 1.3 8.83 3.1 12.56 3.44 7.14 10.01 12.5 17.75 14.5 2.68.69 5.64 1.07 9.44 1.25 1.61.07 18.02.12 34.44.12 16.42 0 32.84-.02 34.41-.1 4.4-.207 6.955-.55 9.78-1.28 7.79-2.01 14.24-7.29 17.75-14.53 1.765-3.64 2.66-7.18 3.065-12.317.088-1.12.125-18.977.125-36.81 0-17.836-.04-35.66-.128-36.78-.41-5.22-1.305-8.73-3.127-12.44-1.495-3.037-3.155-5.305-5.565-7.624C116.9 4 111.64 1.5 105.372.596 102.335.157 101.73.027 86.19 0H65.03z' transform='translate(1.004 1)'/%3E%3Cpath fill='%23fff' d='M66.004 18c-13.036 0-14.672.057-19.792.29-5.11.234-8.598 1.043-11.65 2.23-3.157 1.226-5.835 2.866-8.503 5.535-2.67 2.668-4.31 5.346-5.54 8.502-1.19 3.053-2 6.542-2.23 11.65C18.06 51.327 18 52.964 18 66s.058 14.667.29 19.787c.235 5.11 1.044 8.598 2.23 11.65 1.227 3.157 2.867 5.835 5.536 8.503 2.667 2.67 5.345 4.314 8.5 5.54 3.054 1.187 6.543 1.996 11.652 2.23 5.12.233 6.755.29 19.79.29 13.037 0 14.668-.057 19.788-.29 5.11-.234 8.602-1.043 11.656-2.23 3.156-1.226 5.83-2.87 8.497-5.54 2.67-2.668 4.31-5.346 5.54-8.502 1.18-3.053 1.99-6.542 2.23-11.65.23-5.12.29-6.752.29-19.788 0-13.036-.06-14.672-.29-19.792-.24-5.11-1.05-8.598-2.23-11.65-1.23-3.157-2.87-5.835-5.54-8.503-2.67-2.67-5.34-4.31-8.5-5.535-3.06-1.187-6.55-1.996-11.66-2.23-5.12-.233-6.75-.29-19.79-.29zm-4.306 8.65c1.278-.002 2.704 0 4.306 0 12.816 0 14.335.046 19.396.276 4.68.214 7.22.996 8.912 1.653 2.24.87 3.837 1.91 5.516 3.59 1.68 1.68 2.72 3.28 3.592 5.52.657 1.69 1.44 4.23 1.653 8.91.23 5.06.28 6.58.28 19.39s-.05 14.33-.28 19.39c-.214 4.68-.996 7.22-1.653 8.91-.87 2.24-1.912 3.835-3.592 5.514-1.68 1.68-3.275 2.72-5.516 3.59-1.69.66-4.232 1.44-8.912 1.654-5.06.23-6.58.28-19.396.28-12.817 0-14.336-.05-19.396-.28-4.68-.216-7.22-.998-8.913-1.655-2.24-.87-3.84-1.91-5.52-3.59-1.68-1.68-2.72-3.276-3.592-5.517-.657-1.69-1.44-4.23-1.653-8.91-.23-5.06-.276-6.58-.276-19.398s.046-14.33.276-19.39c.214-4.68.996-7.22 1.653-8.912.87-2.24 1.912-3.84 3.592-5.52 1.68-1.68 3.28-2.72 5.52-3.592 1.692-.66 4.233-1.44 8.913-1.655 4.428-.2 6.144-.26 15.09-.27zm29.928 7.97c-3.18 0-5.76 2.577-5.76 5.758 0 3.18 2.58 5.76 5.76 5.76 3.18 0 5.76-2.58 5.76-5.76 0-3.18-2.58-5.76-5.76-5.76zm-25.622 6.73c-13.613 0-24.65 11.037-24.65 24.65 0 13.613 11.037 24.645 24.65 24.645C79.617 90.645 90.65 79.613 90.65 66S79.616 41.35 66.003 41.35zm0 8.65c8.836 0 16 7.163 16 16 0 8.836-7.164 16-16 16-8.837 0-16-7.164-16-16 0-8.837 7.163-16 16-16z'/%3E%3C/svg%3E");
+        }
+        .tumblr {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' id='Calque_1' x='0px' y='0px' width='256px' height='256px' viewBox='0 0 256 256' enable-background='new 0 0 256 256' xml:space='preserve'%3E%3Cg%3E%3Cg%3E%3Cg%3E%3Crect x='0.24' y='0.167' fill='%23314358' width='255.52' height='256'/%3E%3C/g%3E%3C/g%3E%3Cg%3E%3Cpath fill='%23FFFFFF' d='M168.08,170.918c-2.969,1.416-8.647,2.648-12.881,2.754c-12.783,0.342-15.264-8.979-15.367-15.736v-49.705 h32.065V84.055h-31.954V43.382c0,0-23.008,0-23.383,0c-0.385,0-1.057,0.337-1.152,1.192c-1.368,12.448-7.192,34.296-31.416,43.032 v20.624h16.16v52.167c0,17.863,13.176,43.24,47.959,42.641c11.736-0.201,24.77-5.113,27.648-9.354L168.08,170.918'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        #intro {
+            background-color: var(--background);
+            color: white;
+        }
+        #contact, #contact a, #contact a:visited {
+            color: var(--hover);
+        }
+
+        #fans-sort span, #fans-filter span {
+            color: var(--hover);
+            cursor: pointer;
+        }
+
+        #fans-sort span.active, #fans-filter span.active {
+            font-weight: bold;
+        }
+
     </style>
+  </head>
 
-</head>
-
-<body>
-    <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-98598808-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
-    <div class="full-bg-img flex-center"></div>
-    <div id="concert-connector" class="container">
-        <div id="title" class="text-center">
-            <h3 class="my-3">Harry Styles Love on Tour - Concert Connector</h3>
-            <p>Connect with other fans attending Harry's tour! Select the concert you're attending from the list below, and
-                add your Tumblr username. Then check out everybody else going to the same concert as you.</p>
-            <p>Contact beccasafan on Tumblr or Twitter if you have any questions or need anything changed/removed.</p>
+  <body>
+    <div id="header">
+        <div class="container">
+            <img src="header.jpg" />
         </div>
-        <div>
-        </div>
-        <select id="concerts-list" class="form-control" data-bind="options: concerts, optionsText: 'title', value: selectedConcertIndex, optionsValue: 'index', optionsCaption: 'Select a concert...'">
-	</select>
-        <div id="concert-selected" data-bind="if: selectedConcert">
-            <!-- ko with: selectedConcert -->
-            <div class="card my-3">
-                <div class="row no-gutters">
-                    <div class="col-sm-12 col-md-8">
-                        <div class="card-block concert-meta text-center">
-                            <h3 class="card-title" data-bind="text: venue"> </h3>
-                            <h4 class="card-subtitle" data-bind="text: location"></h4>
-                            <h5 class="card-subtitle" data-bind="text: date"></h5>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-4">
-                        <img data-bind="attr: { src: image }" />
-                        <!--<div class="google-maps--view card-footer text-center">
-      <a target="_blank" data-bind="click: $parent.trackMapClick.bind($parent), attr: { href: $parent.getGoogleMapsLink($data) }">View in Google Maps</a>
-     </div>-->
-                    </div>
-                </div>
-            </div>
-            <div class="card mt-3">
-                <div class="card-block">
-                    <div class="col-sm-12">
-                        <div id="add-your-name" class="pb-3 alert alert-success"><a target="_blank" class="alert-link" data-bind="click: $parent.trackSignupClick.bind($parent), attr: { href: $parent.getGoogleFormsLink($data) }">Add your name</a></div>
-
-                        <div>
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 50%;">Tumblr Name</th>
-                                        <th>Section</th>
-                                    </tr>
-                                </thead>
-                                <!-- ko if: people -->
-                                <tbody data-bind="foreach: people" class="text-left">
-                                    <tr>
-                                        <td data-bind="text: person"></td>
-                                        <td data-bind="text: section"></td>
-                                    </tr>
-                                </tbody>
-                                <!-- /ko -->
-                                <!-- ko ifnot: people -->
-                                <tbody>
-                                    <tr>
-                                        <td colspan="2">Nobody has signed up yet.</td>
-                                    </tr>
-                                </tbody>
-                                <!-- /ko -->
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /ko -->
-        </div>
-        <p class="text-center footer">Background image from <a href="https://hstyles.co.uk" class="footer">https://hstyles.co.uk</a></p>
     </div>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js'></script>
+    <div class="container">
+        <div id="spinner" class="p-5">
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <div id="content">
+            <div class="row">
+                <div class="col">
+                    <div id="concerts" class="py-4">
+                        <select class="custom-select"></select>
+                    </div>
 
+                </div>
+            </div>
+            <div id="no-concert">
+                <div id="intro" class="p-5">
+                    <p>Would you like to know what is being organized at or around your tourdate, or are you the one organizing a project and are looking to promote it? Do you want your concert experience to be the best it can be? Use the tour connector to:</p>
+                    <ul>
+                        <li>Register, find and promote fan projects.</li>
+                        <li>Organize and coordinate pre or after show meetups.</li>
+                        <li>Let others know you'll be attending and are happy to meet new people.</li>
+                        <li>Find all the details on the venue that you might need to plan your trip.</li>
+                    </ul>
+                    <p>Start now by selecting your tourdate in the menu above!</p>
+                </div>
+                <p id="contact" class="text-center m-3">Questions/Problems? Contact beccasafan on <a href="https://beccasafan.tumblr.com" target="_blank">Tumblr</a> or <a href="https://twitter.com/beccasafan" target="_blank">Twitter</a>.</p>
+            </div>
+            <div id="concert-details">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div id="venue" class="content-box my-3">
+                            <div class="content-box-header">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <div class="p-2">VENUE INFORMATION</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-3">
+                                <div class="row">
+                                    <div class="col">
+                                        <h4 id="venue-venue"></h4>
+                                        <div id="venue-city"></div>
+                                        <div id="venue-country"></div>
+                                        <div id="venue-date"></div>
+                                    </div>
+                                    <div class="col">
+                                        <img id="venue-image" />
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center mt-3">
+                                    <div id="venue-website" class="col-auto"><a target="_blank">website</a></div>
+                                    <div id="venue-gmaps" class="col-auto"><a target="_blank">directions</a></div>
+                                    <div id="venue-seatmap" class="col-auto"><a target="_blank">seat map</a></div>
+                                </div>
+                            </div> 
+                        </div>
+
+                        <div id="projects" class="content-box my-3">
+                            <div class="content-box-header">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <div class="p-2">FAN PROJECTS</div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="content-box-action p-2"><a id="projects-action" target="_blank">ADD A PROJECT</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-3">
+                                <p class="content-box-intro">Planning a fan project? Spread the word here!</p>
+                                <div id="projects-projects" class="p-3">
+                                
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="meetups" class="content-box my-3">
+                            <div class="content-box-header">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <div class="p-2">MEETUPS &amp; EVENTS</div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="content-box-action p-2"><a id="meetups-action" target="_blank">ADD A MEETUP</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-3">
+                                <p class="content-box-intro">Planning a pre-show gathering or line event? Share it here!</p>
+                                <div id="meetups-meetups" class="py-3">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 order-md-first">
+                        <div id="fans" class="content-box my-3">
+                            <div class="content-box-header">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <div class="p-2">CONNECT WITH FANS</div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="content-box-action p-2"><a id="fans-action" target="_blank">ADD YOUR NAME</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-3">
+                                <div id="fans-sort">
+                                    SORT: <span name class="active">name</span> | <span section class="">section</span>
+                                </div>
+                                <div id="fans-filter">
+                                    SHOW: <span twitter class="">twitter</span> | <span tumblr class="">tumblr</span> | <span instagram class="">instagram</span> | <span all class="active">all</span>
+                                </div>
+                                <div id="fans-fans">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="http://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    
     <script>
-    var ConcertConnector = (function () {
-    function ConcertConnector() {
-        var _this = this;
-        this.tableId = "1vYcrMlKiTH0wRxO_tA19jtD0X6Uy2a9b4OvwKdNJ"; // TODO
-        this.apiKey = "AIzaSyCc-3LbhBwF_eRD6d8cZ-iqLtKM2E2V8TY";
-        this.concerts = ko.observableArray();
-        this.selectedConcertIndex = ko.observable();
-        this.selectedConcertIndex.subscribe(function(newValue) { 
-            ga("send", "event", "Harry", "view", _this.selectedConcertIndex());
-        });
-        this.lastConcertIndex = null;
-        this.loadingPrevious = false;
+        var concertsElement = $("#concerts select");
+        var fansElement = $("#fans-fans");
+        var projectsElement = $("#projects-projects");
+        var meetupsElement = $("#meetups-meetups");
 
-        this.selectedConcert = ko.computed(function () {
-            var index = _this.selectedConcertIndex();
-            if (index == null || index == "") {
-                index = null;
-            }
-            if (_this.lastConcertIndex != index) {
-                var concert = null;
-                if (_.isEmpty(index)) {
-                    document.title = "Harry Styles Love on Tour - Concert Connector";
-                    if (!_this.loadingPrevious) { history.pushState({index: index}, "", null); }
-                }
-                else {
-                    concert = _this.getConcert(index);
-                    document.title = "Harry Styles Love on Tour - Concert Connector - " + concert.title;
-                    if (!_this.loadingPrevious) { history.pushState({index: index}, "", "#/" + index); }
-                } 
+        function getQueryString(selectedConcert) {
+            var val = selectedConcert ? `concert=${selectedConcert}` : '';
+            return val;
+        }
 
-                _this.lastConcertIndex = index;
-                return concert;
-            }
-        });
-        $(function () {
-            function start() {
-                gapi.client.init({
-                    'apiKey': 'AIzaSyA_fT0UlSgEcw7z0nhyefOp0AWvh5aJCy4',
-                    'discoveryDocs': ['https://sheets.googleapis.com/$discovery/rest?version=v4']
-                }).then(function() {
-                    return gapi.client.sheets.spreadsheets.values.get({
-                        'spreadsheetId': '1Qg-kW7DLfk2OhPlLEkGY_vvMJ697R3pknVmxDiXtJ_s',
-                        'range': 'Concerts!A:H'
+        function organizeFans() {
+            var currentSort = $("#fans-sort span.active").text();
+
+            var filter = $("#fans-filter span.active").text();
+
+            var fans = $("#fans-fans .fan").toArray();
+            fans.forEach(f => {
+                $(f).css("display", filter === "all" || $(f).data(filter) ? "block" : "none");
+            });
+            
+            fans = fans.sort((a,b) => {
+                var aVal = $(a).find(currentSort === "name" ? ".username" : ".fan-section").text().toLowerCase();
+                var bVal = $(b).find(currentSort === "name" ? ".username" : ".fan-section").text().toLowerCase();
+
+                return aVal === bVal ? 0 : aVal < bVal ? -1 : 1;
+            });
+            
+            fans.forEach(i => fansElement.append(i));
+        }
+
+        var selectedConcert = new URLSearchParams(location.search).get("concert");
+        var qsParam = getQueryString(selectedConcert);
+        var url = `https://script.google.com/macros/s/AKfycbwUWvpVLTgGpfUak8z1R4ukSamccyJPT3QfKxOSvsxrIOydCtM/exec?${qsParam}`;
+        
+        $.ajax({
+            url: url,
+            jsonp: "callback",
+            dataType: "jsonp",
+            success: data => {
+                concertsElement.find("option").remove().end().append($("<option></option>", { value: '', text: "Select a concert..."}));
+                data.concerts.forEach(i => concertsElement.append($("<option></option>", { value: i.code, text: i.title, selected: selectedConcert === i.code })));
+
+                if (selectedConcert) {
+                    document.title += " - " + data.venue.title;
+                    gtag('config', 'UA-98598808-1');
+
+                    $("#venue-venue").text(data.venue.venue);
+                    $("#venue-city").text(data.venue.city);
+                    $("#venue-country").text(data.venue.country);
+                    $("#venue-date").text(new Date(data.venue.date).toLocaleDateString(undefined, { month: "long", day: "numeric", year: "numeric" }));
+                    $("#venue-image").attr("src", data.venue.image);
+                    data.venue.website ? $("#venue-website a").attr("href", data.venue.website) : $("#venue-website").hide();
+                    data.venue.gmaps ? $("#venue-gmaps a").attr("href", data.venue.gmaps) : $("#venue-gmaps").hide();
+                    data.venue.seatmap ? $("#venue-seatmap a").attr("href", data.venue.seatmap) : $("#venue-seatmap").hide();
+
+                    $("#fans-action").attr("href", `https://docs.google.com/forms/d/e/1FAIpQLScuKdA6FBfLt61Zt50wQf8agVcxLgVHyXUXAddgdPgPxYXpZg/viewform?usp=pp_url&entry.1893872532=${data.venue.title}`);
+                    $("#projects-action").attr("href", `https://docs.google.com/forms/d/e/1FAIpQLSfom1Vzgp8nsqJMihIYoRNkusbenXMOEsOKVN3tYVQPAAXc8g/viewform?usp=pp_url&entry.1596222949=${data.venue.title}`);
+                    $("#meetups-action").attr("href", `https://docs.google.com/forms/d/e/1FAIpQLSezS67tngGPmULQ3qkujNF-hQLK0IYM3YUV4Xbg9oQbyLDVBw/viewform?usp=pp_url&entry.588312842=${data.venue.title}`);
+
+                    fansElement.empty();
+                    var fanTemplate = $("#fan-template").html();
+
+                    data.fans.forEach(i => {
+                        var fan = fanTemplate
+                            .replace("{{section}}", i.section)
+                            .replace("{{twitter}}", `https://twitter.com/${i.twitter}`)
+                            .replace("{{instagram}}", `https://instagram.com/${i.instagram}`)
+                            .replace("{{tumblr}}", `https://${i.tumblr}.tumblr.com`)
+                            .replace("{{contactName}}", i.contactName)
+                        ;
+
+                        var $fan = $(fan);
+                        if (!i.twitter) {
+                            $fan.find(".fan-twitter").css("display", "none");
+                        } else {
+                            $fan.data("twitter", true);
+                        }
+                        if (!i.instagram) {
+                            $fan.find(".fan-instagram").css("display", "none");
+                        }
+                        else {
+                            $fan.data("instagram", true);
+                        }
+                        if (!i.tumblr) {
+                            $fan.find(".fan-tumblr").css("display", "none");
+                        } else {
+                            console.log("tumblr data");
+                            $fan.data("tumblr", true);
+                        }
+                        if (!i.section) {
+                            $fan.find(".fan-section").css("display", "none");
+                        }
+
+                        fansElement.append($fan);
                     });
-                }).then(function(response) { 
-                    _this.loadData(response.result.values);
-                }, function(reason) { 
-                    console.log("Error: " + reason.result.error.message); 
-                });
-            };
-            gapi.load('client', start);
 
-            // $.get(_this.getTableUrl()).done(function (data) { return _this.loadData(data); });
+                    organizeFans();
+
+                    projectsElement.empty();
+                    var projectTemplate = $("#project-template").html();
+                    data.projects.forEach((i, index) => {
+                        var project = projectTemplate
+                            .replace("{{song}}", i.song)
+                            .replace("{{description}}", i.description)
+                            .replace("{{username}}", i.username)
+                            .replace("{{link}}", i.link)
+                            .replace("{{userlink}}", `https://${i.platform.toLowerCase()}.com/${i.username}`)
+                            .replace("{{platform}}", i.platform.toLowerCase())
+                        ;
+
+                        projectsElement.append(project);
+                        if (index < data.projects.length - 1) {
+                            projectsElement.append("<hr />");
+                        }
+                    });
+
+                    meetupsElement.empty();
+                    var meetupTemplate = $("#meetup-template").html();
+                    data.meetups.forEach((i, index) => {
+                        var meetup = meetupTemplate
+                            .replace("{{description}}", i.description)
+                            .replace("{{username}}", i.username)
+                            .replace("{{link}}", i.link)
+                            .replace("{{userlink}}", `https://${i.platform.toLowerCase()}.com/${i.username}`)
+                            .replace("{{platform}}", i.platform.toLowerCase())
+                        ;
+
+                        meetupsElement.append(meetup);
+                        if (index < data.meetups.length - 1) {
+                            meetupsElement.append("<hr />");
+                        }
+                    });
+
+                    $("#no-concert").hide();
+                    $("#concert-details").show();
+                } else {
+                    gtag('config', 'UA-98598808-1');
+
+                    $("#concert-details").hide();
+                    $("#no-concert").show();
+                }
+
+                $("#content").show();
+                $("#spinner").hide();
+            },
+            //error: (e) => alert(url + ' ' + JSON.stringify(e))
         });
+
+        $(document)
+            .on("change", "#concerts select", (i) => location.search = getQueryString(concertsElement.val()))
+            .on("click", "#fans-filter span", (i) => {
+                var filter = i.target.innerHTML;
+                $("#fans-filter span").removeClass("active");
+                $(`#fans-filter [${filter}]`).addClass("active");
+                organizeFans();
+            })
+            .on("click", "#fans-sort span", (i) => {
+                var filter = i.target.innerHTML;
+                $("#fans-sort span").removeClass("active");
+                $(`#fans-sort [${filter}]`).addClass("active");
+                organizeFans();
+            });
         
-        window.onpopstate = function(e) { _this.loadState(e.state == null ? null : e.state.index); };
-    }
-    ConcertConnector.prototype.loadState = function(index) {
-        this.loadingPrevious = true;
-        this.selectedConcertIndex(index);
-        this.loadingPrevious = false;
-    };
-    ConcertConnector.prototype.getTableUrl = function () {
-        return "https://www.googleapis.com/fusiontables/v2/query?sql=SELECT * FROM " + this.tableId + " ORDER BY Index&key=" + this.apiKey;
-    };
-    ConcertConnector.prototype.loadData = function (data) {
-        data.shift();
-        var result = _.map(data, function (r) {
-            return {
-                index: r[0],
-                date: r[1],
-                venue: r[3],
-                location: r[2],
-                //latLng: r[4],
-                title: r[5],
-                image: r[4],
-                people: r.length < 7 ? null : _.map(r[6].split("|"), function (p) {
-                    if (p.length > 0) {
-                        var person = p.split(":");
-                        return {
-                            person: person[0],
-                            section: person[1] || null
-                        };
-                    }
-                    else {
-                        return null;
-                    }
-                })
-            };
-        });
-        this.concerts(result);
-
-        if (history.state != null) {
-            this.loadState(history.state.index);
-        }
-        
-        if (!_.isEmpty(window.location.hash)) {
-            this.loadState(window.location.hash.replace("#/", ""));
-        }
-        else {
-            document.title = "Harry Styles Love on Tour - Concert Connector";
-            history.pushState({index: null}, "", null);
-        }
-
-    };
-    ConcertConnector.prototype.getConcert = function (index) {
-        return _.find(this.concerts(), function (c) { return index === c.index; });
-    };
-    ConcertConnector.prototype.getGoogleMapsLink = function (concert) {
-        return "https://google.com/maps/place/" + concert.venue.replace(new RegExp(" ", "g"), "+") ; // + "/@" + concert.latLng.replace(" ", "");
-    };
-    ConcertConnector.prototype.getGoogleFormsLink = function(concert) {
-        return "https://docs.google.com/forms/d/e/1FAIpQLScLI4x0bCwbI-JbzFGHIC4z9PTAPFvl3GEEbniX6-p9gaNZ2g/viewform?usp=pp_url&entry.1633573486=" + concert.title;
-    };
-    ConcertConnector.prototype.trackMapClick = function() {
-        ga("send", "event", "Harry", "map", this.selectedConcertIndex());
-        return true;
-    }
-    ConcertConnector.prototype.trackSignupClick = function() {
-        ga("send", "event", "Harry", "signup", this.selectedConcertIndex());
-        return true;
-    }
-    return ConcertConnector;
-}());
-var concertConnector = new ConcertConnector();
-ko.applyBindings(concertConnector);
-</script>
-
-</body>
-
+    </script>
+    <script id="fan-template" type="type/x-template">
+        <div class="fan">
+            <div class="row">
+                <div class="col">
+                    <a class="fan-tumblr" href="{{tumblr}}"><span class="social-media tumblr"></span></a>
+                    <a class="fan-twitter" href="{{twitter}}"><span class="social-media twitter"></span></a>
+                    <a class="fan-instagram" href="{{instagram}}"><span class="social-media instagram"></span></a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="username">{{contactName}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col"><span class="fan-section">{{section}}</span></div>
+            </div>
+        </div>
+    </script>
+    
+    <script id="project-template" type="type/x-template">
+        <div>
+            <p><span class="project-song">{{song}}</span> - {{description}}</p>
+            <p><a href="{{userlink}}" target="_blank"><span class="social-media {{platform}}"></span>{{username}}</a> | <a href="{{link}}" target="_blank">more information</a></p>
+        </div>
+    </script>
+    <script id="meetup-template" type="text/x-template">
+        <div>
+            <p>{{description}}</p>
+            <p><a href="{{userlink}}" target="_blank"><span class="social-media {{platform}}"></span>{{username}}</a> | <a href="{{link}}" target="_blank">more information</a></p>
+        </div>
+    </script>
+  </body>
 </html>
